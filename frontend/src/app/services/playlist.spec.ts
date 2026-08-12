@@ -103,4 +103,24 @@ describe('PlaylistService', () => {
     expect(erroCapturado).toBeInstanceOf(Error);
     expect(erroCapturado?.message).toContain('404');
   });
+
+  it('deve enviar POST para adicionar uma música na playlist', () => {
+    service.adicionarMusica(1, 5).subscribe();
+
+    const requisicao = httpMock.expectOne(`${apiUrl}/1/musicas/5`);
+
+    expect(requisicao.request.method).toBe('POST');
+
+    requisicao.flush(null, { status: 204, statusText: 'No Content' });
+  });
+
+  it('deve enviar DELETE para remover uma música da playlist', () => {
+    service.removerMusica(1, 5).subscribe();
+
+    const requisicao = httpMock.expectOne(`${apiUrl}/1/musicas/5`);
+
+    expect(requisicao.request.method).toBe('DELETE');
+
+    requisicao.flush(null, { status: 204, statusText: 'No Content' });
+  });
 });
