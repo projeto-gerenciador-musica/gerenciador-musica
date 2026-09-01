@@ -386,7 +386,7 @@ class ReviewServiceTest {
                 reviewService.listarSeguindo(null, null);
 
         assertThat(resultado.itens()).isEmpty();
-        assertThat(resultado.totalItens()).isEqualTo(0);
+        assertThat(resultado.totalItens()).isZero();
         verify(reviewRepository, never())
                 .findByUsuario_IdInOrderByCriadaEmDesc(any(), any());
     }

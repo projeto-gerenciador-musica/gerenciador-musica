@@ -196,7 +196,7 @@ describe('PlaylistDetalhe', () => {
   });
 
   it('não deve excluir novamente enquanto uma exclusão está em andamento', () => {
-    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.spyOn(router, 'navigate').mockResolvedValue(true);
 
     fixture.detectChanges();
@@ -207,6 +207,8 @@ describe('PlaylistDetalhe', () => {
 
     const requisicao = httpMock.expectOne(`${apiUrl}/10`);
     requisicao.flush(null, { status: 204, statusText: 'No Content' });
+
+    expect(confirmSpy).toHaveBeenCalledOnce();
   });
 
   it('não deve remover a música quando o usuário cancela a confirmação', () => {

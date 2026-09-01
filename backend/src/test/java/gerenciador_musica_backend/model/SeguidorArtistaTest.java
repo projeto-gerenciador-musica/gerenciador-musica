@@ -28,7 +28,7 @@ class SeguidorArtistaTest {
         assertThat(id1).isEqualTo(id2);
         assertThat(id1).hasSameHashCodeAs(id2);
         assertThat(id1).isNotEqualTo(id3);
-        assertThat(id1).isNotEqualTo(null);
+        assertThat(id1.equals(null)).isFalse();
         assertThat(id1).isNotEqualTo("não é um SeguidorArtistaId");
     }
 
