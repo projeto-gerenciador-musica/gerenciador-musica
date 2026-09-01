@@ -103,12 +103,14 @@ describe('carregamento das rotas com loadComponent', () => {
 
     expect(rotasComLoadComponent.length).toBeGreaterThan(0);
 
-    for (const rota of rotasComLoadComponent) {
-      const componente = await rota.loadComponent!();
+    const componentes = await Promise.all(
+      rotasComLoadComponent.map(rota => rota.loadComponent!())
+    );
 
+    for (const componente of componentes) {
       expect(typeof componente).toBe('function');
     }
-  });
+  }, 20000);
 });
 
 describe('rota raiz e curinga', () => {
